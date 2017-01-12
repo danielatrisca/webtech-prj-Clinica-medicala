@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Servicii medicale</title>
+
+    <!-- Jquery JS file -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- Bootstrap CSS File  -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <!-- Bootstrap JS file -->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS file -->
+    <script type="text/javascript" src="js/servicii.js"></script>
+
+    <!--Custom CSS file-->
+    <link rel="stylesheet" href="medici.css" type="text/css" />
+
+</head>
+
+<body>
+    <!--Content Section-->
+    <div class="header-container">
+        <div class="proper-header">
+            <div id="title">
+                <img src="media/medicine.png"></img <h1> Activ - Med </h1>
+                <img src="media/medicine.png"></img </div>
+
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><a href="index.html">Despre</a></li>
+                    <li><a href="servicii.html">Servicii Medicale</a></li>
+                    <li><a href="medici.html">Medici</a></li>
+                    <li><a href="/">Contact</a></li>
+                    <li><a href="programare.html">Programare</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="records_content">
+                    <br/>
+                    <h3>Servicii medicale</h3>
+                    <table id="services" class="table table-bordered table-striped">
+                        <tr>
+                            <th>ID.</th>
+                            <th>Nume</th>
+                            <th>Pret(RON)</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/Content Section-->
+    <!--Bootstrap Modals-->
+    <!--Modal -Add New Service-->
+    <div class="modal fade" id="add_new_record_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times; </span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add New Service</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="record_form">
+                        <input type="hidden" name="id" id="id" />
+
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" placeholder="Name" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Forename</label>
+                            <input name="price" type="text" id="price" placeholder="Price" class="form-control" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//Modal-->
+
+</body>
+
+</html>

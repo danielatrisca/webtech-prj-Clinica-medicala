@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var cors = require("cors")
+var cors = require("cors");
+
 
 var app = express();
 app.use(bodyParser.json());
@@ -38,7 +39,53 @@ var Doctor = sequelize.define('doctors', {
     },
     phone: {
         type: Sequelize.STRING,
-        field: 'department'
+        field: 'phone'
+    }
+}, {
+    freezeTableName: false,
+    timestamps: false
+});
+
+var Service = sequelize.define('services', {
+    name: {
+        type: Sequelize.STRING,
+        field: 'name'
+    },
+    price: {
+        type: Sequelize.INTEGER,
+        field: 'price'
+    }
+}, {
+    freezeTableName: false,
+    timestamps: false
+});
+
+
+//define entity
+var Appointment = sequelize.define('appointments', {
+    name_forename: {
+        type: Sequelize.STRING,
+        field: 'name_forename'
+    },
+    email: {
+        type: Sequelize.STRING,
+        field: 'email'
+    },
+    phone: {
+        type: Sequelize.STRING,
+        field: 'phone'
+    },
+    doctor_name: {
+        type: Sequelize.STRING,
+        field: 'doctor_name'
+    },
+    investigation: {
+        type: Sequelize.STRING,
+        field: 'investigation'
+    },
+    observations: {
+        type: Sequelize.STRING,
+        field: 'observations'
     }
 }, {
     freezeTableName: false,
@@ -129,6 +176,153 @@ app.delete('/doctors/:id', function(request, response) {
             }
         });
 });
+
+//create new resource 
+app.post('/services', function(request, response) {
+    Service.create(request.body).then(function(service) {
+        Service.findById(service.id).then(function(service) {
+            response.status(201).send(service);
+        });
+    });
+});
+
+//read all
+app.get('/services', function(request, response) {
+    Service.findAll().then(function(services) {
+        response.status(200).send(services);
+    });
+});
+
+//read one by id
+app.get('/services/:id', function(request, response) {
+    Service.findById(request.params.id).then(function(service) {
+        if (service) {
+            response.status(200).send(service);
+        }
+        else {
+            response.status(404).send();
+        }
+    });
+
+});
+
+//update one by id
+app.put('/services/:id', function(request, response) {
+    Service
+        .findById(request.params.id)
+        .then(function(service) {
+            if (service) {
+                service
+                    .updateAttributes(request.body)
+                    .then(function() {
+                        response.status(200).send('updated');
+                    })
+                    .catch(function(error) {
+                        console.warn(error);
+                        response.status(500).send('server error');
+                    });
+            }
+            else {
+                response.status(404).send();
+            }
+        });
+});
+
+//delete one by id
+app.delete('/services/:id', function(request, response) {
+    Service
+        .findById(request.params.id)
+        .then(function(service) {
+            if (service) {
+                service
+                    .destroy()
+                    .then(function() {
+                        response.status(204).send();
+                    })
+                    .catch(function(error) {
+                        console.warn(error);
+                        response.status(500).send('server error');
+                    });
+            }
+            else {
+                response.status(404).send();
+            }
+        });
+});
+
+//create new resource 
+app.post('/appointments', function(request, response) {
+    Appointment.create(request.body).then(function(appointment) {
+        Appointment.findById(appointment.id).then(function(appointment) {
+            response.status(201).send(appointment);
+        });
+    });
+});
+
+//read all
+app.get('/appointmentS', function(request, response) {
+    Appointment.findAll().then(function(appointments) {
+        response.status(200).send(appointments);
+    });
+});
+
+//read one by id
+app.get('/appointmentS/:id', function(request, response) {
+    Appointment.findById(request.params.id).then(function(appointment) {
+        if (appointment) {
+            response.status(200).send(appointment);
+        }
+        else {
+            response.status(404).send();
+        }
+    });
+
+});
+
+//update one by id
+app.put('/appointments/:id', function(request, response) {
+    Appointment
+        .findById(request.params.id)
+        .then(function(appointment) {
+            if (appointment) {
+                appointment
+                    .updateAttributes(request.body)
+                    .then(function() {
+                        response.status(200).send('updated');
+                    })
+                    .catch(function(error) {
+                        console.warn(error);
+                        response.status(500).send('server error');
+                    });
+            }
+            else {
+                response.status(404).send();
+            }
+        });
+});
+
+//delete one by id
+app.delete('/appointments/:id', function(request, response) {
+    Appointment
+        .findById(request.params.id)
+        .then(function(appointment) {
+            if (appointment) {
+                appointment
+                    .destroy()
+                    .then(function() {
+                        response.status(204).send();
+                    })
+                    .catch(function(error) {
+                        console.warn(error);
+                        response.status(500).send('server error');
+                    });
+            }
+            else {
+                response.status(404).send();
+            }
+        });
+});
+
 
 //include static files in the admin folder
 app.use('/admin',express.static('admin'));
